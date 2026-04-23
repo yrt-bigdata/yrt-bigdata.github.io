@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历 - 杨汝涛</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- 设备检测脚本 -->
+    <script>
+        // 设备检测函数
+        function isMobileDevice() {
+            // 检查用户代理
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // 移动设备正则表达式
+            const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+            
+            // 检查屏幕宽度
+            const isMobileScreen = window.innerWidth <= 768;
+            
+            // 检查触摸支持
+            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            // 如果是移动设备且屏幕宽度小于768px，或者有触摸支持且屏幕较小
+            return mobileRegex.test(userAgent) || (isMobileScreen && hasTouch);
+        }
+        
+        // 检查是否应该重定向到手机版
+        function checkDeviceAndRedirect() {
+            // 如果已经是mobile.html，不处理
+            if (window.location.pathname.includes('mobile.html')) {
+                return;
+            }
+            
+            // 检查是否是移动设备
+            if (isMobileDevice()) {
+                // 检查是否已经重定向过（防止循环）
+                const hasRedirected = sessionStorage.getItem('redirectedToMobile');
+                
+                if (!hasRedirected) {
+                    sessionStorage.setItem('redirectedToMobile', 'true');
+                    
+                    // 延迟重定向，避免闪烁
+                    setTimeout(() => {
+                        window.location.href = 'mobile.html';
+                    }, 100);
+                }
+            } else {
+                // 如果是桌面设备，确保清除重定向标记
+                sessionStorage.removeItem('redirectedToMobile');
+            }
+        }
+        
+        // 页面加载时检查
+        document.addEventListener('DOMContentLoaded', checkDeviceAndRedirect);
+        
+        // 窗口大小改变时重新检查
+        window.addEventListener('resize', function() {
+            // 防抖处理，避免频繁触发
+            clearTimeout(this.resizeTimer);
+            this.resizeTimer = setTimeout(checkDeviceAndRedirect, 250);
+        });
+    </script>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">个人简历</div>
+            <ul class="nav-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#experience">工作经历</a></li>
+                <li><a href="#education">教育背景</a></li>
+                <li><a href="#skills">专业技能</a></li>
+                <li><a href="#projects">项目经验</a></li>
+                <li><a href="#contact">联系方式</a></li>
+            </ul>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 首页 -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">你好，我是 <span class="highlight">杨汝涛</span></h1>
+                    <p class="hero-subtitle">数据科学与大数据技术</p>
+                    <p class="hero-description">拥有 3年 学习经历的数据科学与大数据技术学生</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">联系我</a>
+                        <a href="#projects" class="btn btn-secondary">查看项目</a>
+                        <a href="resume.pdf" class="btn btn-outline" download>
+                            <i class="fas fa-download"></i> 下载简历
+                        </a>
+                    </div>
+                </div>
+                                <div class="hero-image">
+                    <!-- 个人头像 - 替换为您的照片 -->
+                    <div class="profile-image-container">
+                        <img src="images/profile_placeholder.jpg" alt="个人头像" class="profile-image">
+                        <div class="image-overlay">
+                            <span class="image-label">山西农业大学</span>
+                            <small>数据科学与大数据技术</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 关于我 -->
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">关于我</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>我是一名充满热情的实习生，期待在大数据领域拥有丰富的经验。我致力于物尽其用，世界大同。</p>
+                    <p>我的工作风格注重细节、创新和团队合作。我相信通过持续学习和适应新技术，可以为团队和项目带来最大价值。</p>
+                    <div class="personal-info">
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-user"></i> 姓名:</span>
+                            <span class="info-value">杨汝涛</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-birthday-cake"></i> 年龄:</span>
+                            <span class="info-value">21</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-map-marker-alt"></i> 地点:</span>
+                            <span class="info-value">山西晋中</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-envelope"></i> 邮箱:</span>
+                            <span class="info-value">2125603137@qq.com</span>
+                        </div>
+                        <div class="info-item">
+                            <span class="info-label"><i class="fas fa-phone"></i> 电话:</span>
+                            <span class="info-value">13546581931</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">2+</div>
+                        <div class="stat-label">2年工作经验</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">10+</div>
+                        <div class="stat-label">完成项目</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">94%</div>
+                        <div class="stat-label">客户满意度</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">3+</div>
+                        <div class="stat-label">技术认证</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 工作经历 -->
+    <section id="experience" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">大学经历</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 - 至今</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">班长</h3>
+                        <h4 class="timeline-company">大数据2301班</h4>
+                        <p>带领班级获得先进班集体</p>
+                        <ul>
+                            <li>组织协调能力 能统筹班级事务、协调同学与老师</li>
+                            <li>沟通表达能力 擅长上传下达，能清晰传递信息、处理问题，沟通顺畅、态度稳重</li>
+                            <li>责任心与执行力 对待任务认真负责，不拖延、不推诿，能按时高质量完成各项工作/li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2023 - 2024</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">图文编辑</h3>
+                        <h4 class="timeline-company">微信公众号“同心洁梯”</h4>
+                        <p>负责图文编辑</p>
+                        <ul>
+                            <li>完成10+篇微信公众号文章，浏览1000+</li>
+                            <li>转发企业高校等招聘信息，提高就业意识</li>
+                            <li>内容排版、视觉设计、素材处理与推文发布，锻炼了信息整合、细节把控与高效执行能力。</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2024 - 2025</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-title">项目核心成员 </h3>
+                        <h4 class="timeline-company">大学生创新创业大赛山西赛区</h4>
+                        <p>负责项目方案设计与落地执行，团队协作完成项目研发</p>
+                        <ul>
+                            <li>荣获山西赛区银奖</li>
+                            <li>团队协作完成项目研发</li>
+                            <li>具备良好的创新思维</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+        <!-- 教育背景 -->
+    <section id="education" class="section">
+        <div class="container">
+            <h2 class="section-title">教育背景</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3 class="education-degree">山西农业大学</h3>
+                    <h4 class="education-school">软件学院</h4>
+                    <div class="education-date">2023 - 2027</div>
+                    <p class="education-desc">数据科学与大数据技术专业</p>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-certificate"></i>
+                    </div>
+                    <h3 class="education-degree">CET4</h3>
+                    <h4 class="education-school">中国教育考试网</h4>
+                    <div class="education-date">2025</div>
+                    <p class="education-desc">CET4</p>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3 class="education-degree">中国国际大学生创新大赛（2025）</h3>
+                    <h4 class="education-school">山西省组织委员会</h4>
+                    <div class="education-date">2025</div>
+                    <p class="education-desc">银奖</p>
+                </div>
+            </div>
+            
+            <!-- 证书展示区 -->
+            <div class="certificates-section">
+                <h3 class="subsection-title">证书展示</h3>
+                <div class="certificates-grid">
+                    <div class="certificate-item">
+                        <img src="images/certificate1_placeholder.jpg" alt="证书1" class="certificate-img">
+                        <div class="certificate-info">
+                            <h4>学科竞赛奖</h4>
+                            <p>颁发机构:山西农业大学</p>
+                            <p>获得时间: 2025年</p>
+                        </div>
+                    </div>
+                    <div class="certificate-item">
+                        <img src="images/certificate2_placeholder.jpg" alt="证书2" class="certificate-img">
+                        <div class="certificate-info">
+                            <h4>先进班集体</h4>
+                            <p>颁发机构: 山西农业大学</p>
+                            <p>获得时间: 2024年</p>
+                        </div>
+                    </div>
+                    <div class="certificate-item">
+                        <img src="images/certificate3_placeholder.jpg" alt="证书3" class="certificate-img">
+                        <div class="certificate-info">
+                            <h4>创新大赛银奖</h4>
+                            <p>颁发机构:大创山西赛区组织委员会</p>
+                            <p>获得时间: 2025年</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 专业技能 -->
+    <section id="skills" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">专业技能</h2>
+            <div class="skills-container">
+                <div class="skills-category">
+                    <h3 class="skills-category-title">技术技能</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">JavaScript/TypeScript</span>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">React/Vue.js</span>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Node.js/Python</span>
+                            <span class="skill-percent">70%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">数据库设计</span>
+                            <span class="skill-percent">65%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <h3 class="skills-category-title">软技能</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">团队协作</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">沟通能力</span>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">项目管理</span>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">问题解决</span>
+                            <span class="skill-percent">65%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skills-category">
+                    <h3 class="skills-category-title">语言能力</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">中文（母语）</span>
+                            <span class="skill-percent">95%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 95%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">英语</span>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目经验 -->
+    <section id="projects" class="section">
+    <div class="container">
+        <h2 class="section-title">项目经验</h2>
+        <div class="projects-grid">
+            <!-- 项目1：Python Flask 通用后台管理系统 -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/project1_placeholder.jpg" alt="Flask图书管理后台" class="project-screenshot">
+                    <div class="image-overlay">
+                        <span class="image-label">项目1截图</span>
+                        <small>images/project1.jpg</small>
+                    </div>
+                </div>
+                <h3 class="project-title">Flask 图书管理后台系统</h3>
+                <p class="project-desc">基于 Python + Flask 框架开发的通用后台管理系统，采用 MVC 架构设计，实现用户登录认证、用户管理、图书信息管理及图片上传等核心功能，配套 MySQL 数据库完成数据持久化与业务逻辑实现。</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Flask</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">Bootstrap</span>
+                </div>
+                <a href="#" class="project-link">查看详情</a>
+            </div>
+
+            <!-- 项目2：人事管理系统（JSP + Servlet） -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/project2_placeholder.jpg" alt="JSP人事管理系统" class="project-screenshot">
+                    <div class="image-overlay">
+                        <span class="image-label">项目2截图</span>
+                        <small>images/project2.jpg</small>
+                    </div>
+                </div>
+                <h3 class="project-title">JSP 企业人事管理平台</h3>
+                <p class="project-desc">采用 JSP + Servlet 技术栈开发企业人事管理系统，涵盖招聘管理、培训管理、薪资管理与用户权限管理模块，基于 MVC 分层架构设计，使用 C3P0 连接池优化数据库访问，具备完整的 Web 项目工程化开发能力。</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Java</span>
+                    <span class="tech-tag">JSP</span>
+                    <span class="tech-tag">Servlet</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">C3P0</span>
+                </div>
+                <a href="#" class="project-link">查看详情</a>
+            </div>
+
+            <!-- 项目3：电商商品推荐子系统（大数据） -->
+            <div class="project-card">
+                <div class="project-image">
+                    <img src="images/project3_placeholder.jpg" alt="Hadoop电商推荐" class="project-screenshot">
+                    <div class="image-overlay">
+                        <span class="image-label">项目3截图</span>
+                        <small>images/project3.jpg</small>
+                    </div>
+                </div>
+                <h3 class="project-title">Hadoop 电商商品推荐子系统</h3>
+                <p class="project-desc">搭建 Hadoop 伪分布式集群环境，实现用户行为日志采集、清洗与预处理；基于协同过滤思想完成用户偏好度计算与矩阵分析，开发推荐算法模块，输出个性化商品推荐列表，掌握大数据处理全流程基础实践。</p>
+                <div class="project-tech">
+                    <span class="tech-tag">Hadoop</span>
+                    <span class="tech-tag">Hive</span>
+                    <span class="tech-tag">MySQL</span>
+                    <span class="tech-tag">Shell</span>
+                </div>
+                <a href="#" class="project-link">查看详情</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- 联系方式 -->
+    <section id="contact" class="section bg-light">
+        <div class="container">
+            <h2 class="section-title">联系方式</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>邮箱</h3>
+                            <p>2125603137@qq.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>电话</h3>
+                            <p>13546581931</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>地址</h3>
+                            <p>山西农业大学软件学院</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-globe"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>网站</h3>
+                            <p>目前仅有本站</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="#home">首页</a>
+                    <a href="#about">关于我</a>
+                    <a href="#experience">工作经历</a>
+                    <a href="#education">教育背景</a>
+                    <a href="#skills">专业技能</a>
+                    <a href="#projects">项目经验</a>
+                    <a href="#contact">联系方式</a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-link">
+                        <i class="fab fa-weixin"></i>
+                    </a>
+                </div>
+                
+                <p class="copyright">
+                    &copy; 2026 杨汝涛.  保留所有权利.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript文件 -->
+    <script src="script.js"></script>
+</body>
+</html>
