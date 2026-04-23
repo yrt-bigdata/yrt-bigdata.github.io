@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>手机版简历 - 杨汝涛</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <!-- 设备检测脚本 - 与index.html保持一致 -->
+    <script>
+        // 设备检测函数
+        function isMobileDevice() {
+            // 检查用户代理
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            
+            // 移动设备正则表达式
+            const mobileRegex = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i;
+            
+            // 检查屏幕宽度
+            const isMobileScreen = window.innerWidth <= 768;
+            
+            // 检查触摸支持
+            const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+            
+            // 如果是移动设备且屏幕宽度小于768px，或者有触摸支持且屏幕较小
+            return mobileRegex.test(userAgent) || (isMobileScreen && hasTouch);
+        }
+        
+        // 检查是否应该重定向到桌面版
+        function checkDeviceAndRedirect() {
+            // 如果已经是index.html，不处理
+            if (window.location.pathname.includes('index.html') || window.location.pathname === '/') {
+                return;
+            }
+            
+            // 检查是否是桌面设备
+            if (!isMobileDevice()) {
+                // 检查是否已经重定向过（防止循环）
+                const hasRedirected = sessionStorage.getItem('redirectedToDesktop');
+                
+                if (!hasRedirected) {
+                    sessionStorage.setItem('redirectedToDesktop', 'true');
+                    
+                    // 延迟重定向，避免闪烁
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 100);
+                }
+            } else {
+                // 如果是移动设备，确保清除重定向标记
+                sessionStorage.removeItem('redirectedToDesktop');
+            }
+        }
+        
+        // 页面加载时检查
+        document.addEventListener('DOMContentLoaded', checkDeviceAndRedirect);
+        
+        // 窗口大小改变时重新检查
+        window.addEventListener('resize', function() {
+            // 防抖处理，避免频繁触发
+            clearTimeout(this.resizeTimer);
+            this.resizeTimer = setTimeout(checkDeviceAndRedirect, 250);
+        });
+    </script>
+    <style>
+        /* 手机版专用样式 */
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #7c3aed;
+            --dark-color: #1f2937;
+            --light-color: #f9fafb;
+            --gray-color: #6b7280;
+            --border-color: #e5e7eb;
+            --shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--dark-color);
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* 手机状态栏模拟 */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 44px;
+            background: linear-gradient(to bottom, #000, #333);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-size: 14px;
+            z-index: 1000;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .status-time {
+            font-weight: 500;
+        }
+
+        .status-icons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .status-icons i {
+            font-size: 12px;
+        }
+
+        /* 导航栏 */
+        .mobile-nav {
+            position: fixed;
+            top: 44px;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            box-shadow: var(--shadow);
+            z-index: 999;
+        }
+
+        .nav-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 16px;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: var(--dark-color);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        /* 主要内容区域 */
+        .main-content {
+            margin-top: 100px;
+            padding: 16px;
+            padding-bottom: 80px;
+        }
+
+        /* 个人资料卡片 */
+        .profile-card {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            border: 4px solid var(--primary-color);
+        }
+
+        .profile-name {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+            color: var(--dark-color);
+        }
+
+        .profile-title {
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .profile-bio {
+            color: var(--gray-color);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        /* 联系信息 */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px;
+            background: var(--light-color);
+            border-radius: 8px;
+        }
+
+        .contact-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+        }
+
+        .contact-text {
+            font-size: 12px;
+            color: var(--dark-color);
+        }
+
+        /* 部分标题 */
+        .section-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin: 24px 0 16px;
+            color: var(--dark-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        /* 技能卡片 */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .skill-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .skill-name {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .skill-bar {
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 3px;
+        }
+
+        /* 经历卡片 */
+        .experience-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .exp-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--dark-color);
+        }
+
+        .exp-company {
+            color: var(--primary-color);
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+
+        .exp-date {
+            color: var(--gray-color);
+            font-size: 12px;
+            background: var(--light-color);
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+
+        .exp-desc {
+            color: var(--gray-color);
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* 项目卡片 */
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 16px;
+            box-shadow: var(--shadow);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 16px;
+        }
+
+        .project-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--dark-color);
+        }
+
+        .project-desc {
+            color: var(--gray-color);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .project-tag {
+            background: var(--light-color);
+            color: var(--primary-color);
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 500;
+        }
+
+        /* 教育卡片 */
+        .education-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .edu-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .edu-info {
+            flex: 1;
+        }
+
+        .edu-degree {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .edu-school {
+            color: var(--primary-color);
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .edu-details {
+            color: var(--gray-color);
+            font-size: 12px;
+        }
+
+        /* 底部导航 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid var(--border-color);
+            z-index: 998;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--gray-color);
+            font-size: 11px;
+            padding: 8px;
+            border-radius: 8px;
+            transition: var(--transition);
+        }
+
+        .nav-item.active {
+            color: var(--primary-color);
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        /* 按钮 */
+        .action-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 24px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 100%;
+            margin-top: 8px;
+        }
+
+        .action-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: var(--secondary-color);
+        }
+
+        .action-btn.outline {
+            background: transparent;
+            border: 2px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        /* 卡片组 */
+        .card-group {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 360px) {
+            .contact-info {
+                grid-template-columns: 1fr;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (min-width: 768px) {
+            body {
+                max-width: 375px;
+                margin: 0 auto;
+                border-left: 1px solid var(--border-color);
+                border-right: 1px solid var(--border-color);
+                box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .profile-card,
+        .card-group,
+        .experience-card,
+        .project-card,
+        .education-card {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        /* 滚动条样式 */
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 手机状态栏 -->
+    <div class="status-bar">
+        <div class="status-time" id="currentTime">9:41</div>
+        <div class="status-icons">
+            <i class="fas fa-signal"></i>
+            <i class="fas fa-wifi"></i>
+            <i class="fas fa-battery-full"></i>
+        </div>
+    </div>
+
+    <!-- 导航栏 -->
+    <nav class="mobile-nav">
+        <div class="nav-title">个人简历</div>
+        <div class="nav-actions">
+            <button class="nav-btn" onclick="shareResume()">
+                <i class="fas fa-share-alt"></i>
+            </button>
+            <button class="nav-btn" onclick="downloadResume()">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 主要内容 -->
+    <main class="main-content">
+        <!-- 个人资料 -->
+        <section class="profile-card">
+            <img src="images/profile_placeholder.jpg" alt="个人头像" class="profile-avatar">
+                        <h1 class="profile-name">杨汝涛</h1>
+            <p class="profile-title">数据科学与大数据技术</p>
+            <p class="profile-bio">拥有 3年 学习经历的数据科学与大数据技术学生</p>
+            
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-text">2125603137@qq.com</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <div class="contact-text">13546581931</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-text">山西晋中</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <div class="contact-text">目前仅有本站</div>
+                </div>
+            </div>
+
+            <button class="action-btn" onclick="contactMe()">
+                <i class="fas fa-paper-plane"></i> 联系我
+            </button>
+        </section>
+
+        <!-- 专业技能 -->
+        <section>
+            <h2 class="section-title">
+                <i class="fas fa-code"></i> 专业技能
+            </h2>
+            
+            <div class="card-group">
+                <h3 style="font-size: 16px; margin-bottom: 12px; color: var(--dark-color);">技术技能</h3>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                                                <div class="skill-name">JavaScript/TypeScript</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">React/Vue.js</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">Node.js/Python</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-name">数据库设计</div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section>
+                        <h2 class="section-title">
+                <i class="fas fa-briefcase"></i> 大学经历
+            </h2>
+            
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div>
+                                                <h3 class="exp-title">班长</h3>
+                        <p class="exp-company">大数据2301班</p>
+                    </div>
+                                        <span class="exp-date">2023 - 至今</span>
+                </div>
+                <p class="exp-desc">带领班级获得先进班集体</p>
+            </div>
+
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div>
+                                                <h3 class="exp-title">图文编辑</h3>
+                        <p class="exp-company">微信公众号"同心洁梯"</p>
+                    </div>
+                    <span class="exp-date">2023 - 2024</span>
+                </div>
+                <p class="exp-desc">负责图文编辑</p>
+            </div>
+
+            <div class="experience-card">
+                <div class="exp-header">
+                    <div>
+                                                <h3 class="exp-title">项目核心成员</h3>
+                        <p class="exp-company">大学生创新创业大赛山西赛区</p>
+                    </div>
+                    <span class="exp-date">2024 - 2025</span>
+                </div>
+                <p class="exp-desc">负责项目方案设计与落地执行，团队协作完成项目研发</p>
+            </div>
+        </section>
+
+        <!-- 项目经验 -->
+        <section>
+            <h2 class="section-title">
+                <i class="fas fa-project-diagram"></i> 项目经验
+            </h2>
+            
+            <div class="project-card">
+                <img src="images/project1_placeholder.jpg" alt="项目1" class="project-image">
+                <div class="project-content">
+                                        <h3 class="project-title">Flask 图书管理后台系统</h3>
+                    <p class="project-desc">基于 Python + Flask 框架开发的通用后台管理系统，采用 MVC 架构设计，实现用户登录认证、用户管理、图书信息管理及图片上传等核心功能。</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">Flask</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Bootstrap</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="images/project2_placeholder.jpg" alt="项目2" class="project-image">
+                <div class="project-content">
+
+
+
+
+
+
+                                        <h3 class="project-title">JSP 企业人事管理平台</h3>
+                    <p class="project-desc">采用 JSP + Servlet 技术栈开发企业人事管理系统，涵盖招聘管理、培训管理、薪资管理与用户权限管理模块。</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Java</span>
+                        <span class="project-tag">JSP</span>
+                        <span class="project-tag">Servlet</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">C3P0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <img src="images/project3_placeholder.jpg" alt="项目3" class="project-image">
+                <div class="project-content">
+                                        <h3 class="project-title">Hadoop 电商商品推荐子系统</h3>
+                    <p class="project-desc">搭建 Hadoop 伪分布式集群环境，实现用户行为日志采集、清洗与预处理；基于协同过滤思想完成用户偏好度计算与矩阵分析。</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Hadoop</span>
+                        <span class="project-tag">Hive</span>
+                        <span class="project-tag">MySQL</span>
+                        <span class="project-tag">Shell</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 教育背景 -->
+        <section>
+            <h2 class="section-title">
+                <i class="fas fa-graduation-cap"></i> 教育背景
+            </h2>
+            
+            <div class="education-card">
+                <div class="edu-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <div class="edu-info">
+                                        <h3 class="edu-degree">山西农业大学</h3>
+                    <p class="edu-school">软件学院</p>
+                    <p class="edu-details">2023 - 2027 • 数据科学与大数据技术</p>
+                </div>
+            </div>
+
+            <div class="education-card">
+                <div class="edu-icon">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <div class="edu-info">
+                                        <h3 class="edu-degree">CET4</h3>
+                    <p class="edu-school">中国教育考试网</p>
+                    <p class="edu-details">2025 • CET4</p>
+                </div>
+            </div>
+
+            <div class="education-card">
+                <div class="edu-icon">
+                    <i class="fas fa-book"></i>
+                </div>
+                <div class="edu-info">
+                                        <h3 class="edu-degree">中国国际大学生创新大赛（2025）</h3>
+                    <p class="edu-school">山西省组织委员会</p>
+                    <p class="edu-details">2025 • 银奖</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 证书展示 -->
+        <section>
+            <h2 class="section-title">
+                <i class="fas fa-award"></i> 证书展示
+            </h2>
+            
+            <div class="card-group">
+                <div style="display: grid; gap: 16px;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 60px; height: 60px; background: var(--light-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-certificate" style="color: var(--primary-color); font-size: 24px;"></i>
+                        </div>
+                        <div>
+                                                        <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 2px;">学科竞赛奖</h4>
+                            <p style="font-size: 12px; color: var(--gray-color);">颁发机构: 山西农业大学</p>
+                            <p style="font-size: 12px; color: var(--gray-color);">获得时间: 2025年</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 60px; height: 60px; background: var(--light-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-certificate" style="color: var(--primary-color); font-size: 24px;"></i>
+                        </div>
+                        <div>
+                                                        <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 2px;">先进班集体</h4>
+                            <p style="font-size: 12px; color: var(--gray-color);">颁发机构: 山西农业大学</p>
+                            <p style="font-size: 12px; color: var(--gray-color);">获得时间: 2024年</p>
+                        </div>
+                    </div>
+                    
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div style="width: 60px; height: 60px; background: var(--light-color); border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-certificate" style="color: var(--primary-color); font-size: 24px;"></i>
+                        </div>
+                        <div>
+                                                        <h4 style="font-size: 14px; font-weight: 600; margin-bottom: 2px;">创新大赛银奖</h4>
+                            <p style="font-size: 12px; color: var(--gray-color);">颁发机构: 大创山西赛区组织委员会</p>
+                            <p style="font-size: 12px; color: var(--gray-color);">获得时间: 2025年</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 统计卡片 -->
+        <section>
+            <h2 class="section-title">
+                <i class="fas fa-chart-line"></i> 数据统计
+            </h2>
+            
+            <div class="card-group">
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px;">
+                    <div style="text-align: center; padding: 16px; background: var(--light-color); border-radius: 12px;">
+                                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">2+</div>
+                        <div style="font-size: 12px; color: var(--gray-color);">年工作经验</div>
+                    </div>
+                    <div style="text-align: center; padding: 16px; background: var(--light-color); border-radius: 12px;">
+                                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">10+</div>
+                        <div style="font-size: 12px; color: var(--gray-color);">完成项目</div>
+                    </div>
+                    <div style="text-align: center; padding: 16px; background: var(--light-color); border-radius: 12px;">
+                                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">94%</div>
+                        <div style="font-size: 12px; color: var(--gray-color);">客户满意度</div>
+                    </div>
+                    <div style="text-align: center; padding: 16px; background: var(--light-color); border-radius: 12px;">
+                                                <div style="font-size: 24px; font-weight: 700; color: var(--primary-color); margin-bottom: 4px;">3+</div>
+                        <div style="font-size: 12px; color: var(--gray-color);">技术认证</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 行动按钮 -->
+        <div style="margin: 32px 0;">
+            <button class="action-btn" onclick="downloadResume()">
+                <i class="fas fa-download"></i> 下载完整简历
+            </button>
+            <button class="action-btn secondary" onclick="viewDesktopVersion()" style="margin-top: 12px;">
+                <i class="fas fa-desktop"></i> 查看桌面版
+            </button>
+        </div>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav">
+        <a href="#profile" class="nav-item active" onclick="switchTab('profile')">
+            <i class="fas fa-user"></i>
+            <span>个人</span>
+        </a>
+        <a href="#skills" class="nav-item" onclick="switchTab('skills')">
+            <i class="fas fa-code"></i>
+            <span>技能</span>
+        </a>
+        <a href="#experience" class="nav-item" onclick="switchTab('experience')">
+            <i class="fas fa-briefcase"></i>
+            <span>经历</span>
+        </a>
+        <a href="#projects" class="nav-item" onclick="switchTab('projects')">
+            <i class="fas fa-project-diagram"></i>
+            <span>项目</span>
+        </a>
+        <a href="#contact" class="nav-item" onclick="switchTab('contact')">
+            <i class="fas fa-envelope"></i>
+            <span>联系</span>
+        </a>
+    </nav>
+
+    <script>
+        // 更新时间
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('currentTime').textContent = `${hours}:${minutes}`;
+        }
+        
+        // 初始更新时间
+        updateTime();
+        // 每分钟更新一次时间
+        setInterval(updateTime, 60000);
+
+        // 标签切换
+        function switchTab(tab) {
+            // 移除所有active类
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // 添加当前active类
+            event.target.closest('.nav-item').classList.add('active');
+            
+            // 滚动到对应部分
+            const sections = {
+                'profile': 0,
+                'skills': document.querySelector('.section-title:nth-of-type(1)').offsetTop - 100,
+                'experience': document.querySelector('.section-title:nth-of-type(2)').offsetTop - 100,
+                'projects': document.querySelector('.section-title:nth-of-type(3)').offsetTop - 100,
+                'contact': document.querySelector('.section-title:nth-of-type(4)').offsetTop - 100
+            };
+            
+            window.scrollTo({
+                top: sections[tab] || 0,
+                behavior: 'smooth'
+            });
+        }
+
+        // 分享简历
+        function shareResume() {
+            if (navigator.share) {
+                navigator.share({
+                    title: '杨汝涛 - 个人简历',
+                    text: '查看我的个人简历',
+                    url: window.location.href
+                });
+            } else {
+                alert('分享功能需要现代浏览器支持');
+            }
+        }
+
+        // 下载简历
+        function downloadResume() {
+            // 这里可以链接到PDF文件
+            window.open('resume.pdf', '_blank');
+        }
+
+        // 联系我
+        function contactMe() {
+            // 这里可以打开邮件客户端或显示联系方式
+            const email = '2125603137@qq.com';
+            const subject = '工作咨询 - 来自简历网站';
+            const body = '您好，\n\n我在您的简历网站上看到了您的信息，想与您进一步沟通。\n\n祝好！';
+            
+            window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        }
+
+        // 查看桌面版
+        function viewDesktopVersion() {
+            window.location.href = 'index.html';
+        }
+
+        // 技能进度条动画
+        function animateSkills() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            skillBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 300);
+            });
+        }
+
+        // 页面加载时动画技能
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(animateSkills, 500);
+            
+            // 添加滚动监听
+            let lastScrollTop = 0;
+            const mobileNav = document.querySelector('.mobile-nav');
+            
+            window.addEventListener('scroll', () => {
+                const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                
+                if (scrollTop > lastScrollTop && scrollTop > 100) {
+                    mobileNav.style.transform = 'translateY(-100%)';
+                } else {
+                    mobileNav.style.transform = 'translateY(0)';
+                }
+                
+                lastScrollTop = scrollTop;
+            });
+        });
+
+        // 触摸滑动效果
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        document.addEventListener('touchstart', e => {
+            touchStartY = e.changedTouches[0].screenY;
+        });
+
+        document.addEventListener('touchend', e => {
+            touchEndY = e.changedTouches[0].screenY;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeDistance = touchEndY - touchStartY;
+            
+            // 向上滑动超过50px，隐藏导航栏
+            if (swipeDistance < -50) {
+                document.querySelector('.mobile-nav').style.transform = 'translateY(-100%)';
+            }
+            // 向下滑动超过50px，显示导航栏
+            else if (swipeDistance > 50) {
+                document.querySelector('.mobile-nav').style.transform = 'translateY(0)';
+            }
+        }
+
+        // 防止双击缩放
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', e => {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                e.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+
+        // 页面加载动画
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease';
+            
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
